@@ -18,14 +18,20 @@ document.addEventListener('injected', function (e) {
 
 let territories;
 let unitsByPlayer;
-function getArrows() {
+function getOrders() {
   let paths = document.getElementsByTagName("path")
+  let circles = document.getElementsByTagName("circle")
+
   let arrows = Array.from(paths).filter(
-    elem => elem.getAttribute("style") == ""
-    || elem.getAttribute("style") == "fill-opacity: 0.8;"
-    || elem.hasAttribute("stroke-dasharray")
+    elem => elem.getAttribute("fill") === "none"
+    || elem.getAttribute("fill-opacity") === "0.8"
   )
-  return arrows
+
+
+  let holds = Array.from(circles).filter(
+    elem => elem.getAttribute("fill") === "none"
+  )
+  return Array.concat(arrows, holds)
 }
 
 document.addEventListener("keydown", event => {
@@ -35,7 +41,7 @@ document.addEventListener("keydown", event => {
       elem.style.filter = "";
       elem.style["user-select"] = "";
     } else {
-      elem.style.filter = "grayscale(100%) blur(5px)";
+      elem.style.filter = "grayscale(100%) blur(20px)";
       elem.style["user-select"] = "none";
     } 
     event.preventDefault();
@@ -43,28 +49,55 @@ document.addEventListener("keydown", event => {
 });
 
 browser.storage.local.get("privateMode").then(result => {
+  setTimeout(togglePlayerDetails, 100, result.privateMode)
   togglePlayerDetails(result.privateMode)
 })
 
 browser.storage.local.get("hideTooltip").then(result => {
-  console.log(result)
+    toggleTooltip(result.hideTooltip)
 })
 
 browser.runtime.onMessage.addListener((message, sender) => {
   if (message.event === "privateMode") {
     togglePlayerDetails(message.state)
   }
+
+  if (message.event === "hideTooltip") {
+    toggleTooltip(message.state)
+  }
 })
 
 function togglePlayerDetails(dontdisplay) {
-  let arrows = getArrows()
-  arrows.forEach(elem => {
-    if (dontdisplay) {
-      elem.style.display = "none";
-    } else {
-      elem.style.display = "";
-    }
+  let orders = getOrders();
+  let sideBar = document.getElementsByClassName("card-body")[0];
+
+  let display;
+  let blur;
+
+  if (dontdisplay) {
+    display = "none";
+    blur = "grayscale(100%) blur(10px)";
+  } else {
+    display = "";
+    blur = "";
+  };
+
+  sideBar.style.filter = blur;
+
+  orders.forEach(elem => {
+    elem.style.display = display;
   })
+}
+
+
+function toggleTooltip(dontdisplay) {
+  if (dontdisplay) {
+    hide = "opacity(0%)";
+  } else {
+    hide = "";
+  };
+  document.getElementById("tooltip").style.filter = hide;
+  console.log(document.getElementById("tooltip"))
 }
 
 
