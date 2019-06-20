@@ -1,3 +1,4 @@
+const browser = window.browser || window.chrome;
 
 // Inserts the script 'inject.js' into the current document. Once it's loaded,
 //  remove it. This makes it possible to enter the pages javascript scope to
@@ -31,7 +32,7 @@ function getOrders() {
   let holds = Array.from(circles).filter(
     elem => elem.getAttribute("fill") === "none"
   )
-  return Array.concat(arrows, holds)
+  return [...arrows, ...holds]
 }
 
 document.addEventListener("keydown", event => {
@@ -48,16 +49,17 @@ document.addEventListener("keydown", event => {
   }
 });
 
-browser.storage.local.get("privateMode").then(result => {
+
+chrome.storage.local.get("privateMode", result => {
   setTimeout(togglePlayerDetails, 100, result.privateMode)
   togglePlayerDetails(result.privateMode)
 })
 
-browser.storage.local.get("hideTooltip").then(result => {
+chrome.storage.local.get("hideTooltip", result => {
     toggleTooltip(result.hideTooltip)
 })
 
-browser.runtime.onMessage.addListener((message, sender) => {
+chrome.runtime.onMessage.addListener((message, sender) => {
   if (message.event === "privateMode") {
     togglePlayerDetails(message.state)
   }
@@ -97,7 +99,6 @@ function toggleTooltip(dontdisplay) {
     hide = "";
   };
   document.getElementById("tooltip").style.filter = hide;
-  console.log(document.getElementById("tooltip"))
 }
 
 
