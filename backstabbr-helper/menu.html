@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+  <link href=" https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css" rel="stylesheet">
+</head>
+
+<body class="text-indigo-900">
+  <div class="m-4">
+    <div class="text-lg font-bold pb-2">
+      Backstabbr Options
+    </div>
+    <div class="my-2 checkbox">
+      <div class="pretty p-switch p-fill p-error"
+           title="Removes all 'move' arrows from the game map,&#013;and hides all references to your current country.">
+        <input type="checkbox" id="privateMode" />
+        <div class="state p-success">
+          <label>Private mode</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="my-2">
+      <div class="pretty p-switch p-fill p-error p-smaller"
+           title="Hides the tooltips that are displayed when&#013;hovering over a country.">
+        <input type="checkbox" id="hideTooltip" />
+        <div class="state p-success">
+          <label>Hide tooltips</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="my-4 mx-auto text-center text-xs">
+      Pressing
+      <kbd class="text-indigo-800
+                  border-indigo-800
+                  bg-indigo-100
+                  border rounded px-1">space</kbd>
+      enters<br>emergency private mode.
+    </div>
+  </div>
+</body>
+<script src="menu.js" type="text/javascript"></script>
+</html>
