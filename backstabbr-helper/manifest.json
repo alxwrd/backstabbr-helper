@@ -3,7 +3,7 @@
   "name": "Backstabbr Helper",
   "author": "Alex Ward (alxwrd@googlemail.com)",
   "homepage_url": "https://www.github.com/alxwrd/backstabbr-helper",
-  "version": "0.1",
+  "version": "0.2",
   "description": "Improvements to backstabbr.com",
   "browser_action": {
     "default_area": "navbar",
