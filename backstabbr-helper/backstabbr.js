@@ -37,6 +37,11 @@ function getOrders() {
 
 document.addEventListener("keydown", event => {
   if (event.code == "Space") {
+    if (event.target.tagName === "TEXTAREA"
+     || event.target.tagName === "INPUT") {
+      return;
+    }
+
     let elem = document.getElementById("body-container");
     if (elem.style.filter) {
       elem.style.filter = "";
