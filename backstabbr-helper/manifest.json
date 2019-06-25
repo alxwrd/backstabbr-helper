@@ -23,7 +23,9 @@
         "*://*.backstabbr.com/*"
       ],
       "js": [
-        "backstabbr.js"
+        "backstabbr.js",
+        "redis/rgbcolor/rgbcolor.js",
+        "redis/canvg/canvg.js"
       ]
     }
   ],

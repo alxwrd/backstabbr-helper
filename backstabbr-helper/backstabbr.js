@@ -72,6 +72,10 @@ chrome.runtime.onMessage.addListener((message, sender) => {
   if (message.event === "hideTooltip") {
     toggleTooltip(message.state)
   }
+
+  if (message.event === "screenshot") {
+    screenshotMap()
+  }
 })
 
 function togglePlayerDetails(dontdisplay) {
@@ -104,6 +108,33 @@ function toggleTooltip(dontdisplay) {
     hide = "";
   };
   document.getElementById("tooltip").style.filter = hide;
+}
+
+function screenshotMap() {
+  let svg = document.getElementById('map').children[0];
+  let data = (new XMLSerializer()).serializeToString(svg);
+  let canvas = document.createElement('canvas');
+
+  canvas.width = svg.getBoundingClientRect().width * 2;
+  canvas.height = svg.getBoundingClientRect().height * 2;
+
+  canvg(canvas, data, {
+    ignoreDimensions: true,
+    scaleHeight: canvas.height,
+    renderCallback: function() {
+      canvas.toBlob(blob => {
+        const URL = window.URL || window.webkitURL;
+        const downloadUrl = URL.createObjectURL(blob); 
+
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        a.download = "backstabbr.png";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }, "image/png")
+    }
+  });
 }
 
 
