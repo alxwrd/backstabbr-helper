@@ -23,9 +23,9 @@
         "*://*.backstabbr.com/*"
       ],
       "js": [
-        "backstabbr.js",
-        "redis/rgbcolor/rgbcolor.js",
-        "redis/canvg/canvg.js"
+        "backstabbr-helper-js/backstabbr.js",
+        "backstabbr-helper-js/redis/rgbcolor/rgbcolor.js",
+        "backstabbr-helper-js/redis/canvg/canvg.js"
       ]
     }
   ],
@@ -34,7 +34,7 @@
     "tabs"
   ],
   "web_accessible_resources": [
-    "inject.js"
+    "backstabbr-helper-js/inject.js"
   ],
   "icons": {
     "16": "icons/icon-16.png",

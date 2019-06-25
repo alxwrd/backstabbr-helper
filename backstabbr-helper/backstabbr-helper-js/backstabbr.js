@@ -4,7 +4,7 @@ const browser = window.browser || window.chrome;
 //  remove it. This makes it possible to enter the pages javascript scope to
 //  access variables declared there.
 var s = document.createElement('script');
-s.src = chrome.extension.getURL('inject.js');
+s.src = chrome.extension.getURL('backstabbr-helper-js/inject.js');
 (document.head || document.documentElement).appendChild(s);
 s.onload = function () {
   s.parentNode.removeChild(s);
